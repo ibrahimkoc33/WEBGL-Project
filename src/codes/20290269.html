@@ -1,0 +1,103 @@
+<html>
+<body>
+	<br> speed 0 <input id="slide" type="range"	min="0" max="100" step="10" value="50" /> 100
+    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+	<canvas id="glcanvas" width="512" height="512" align="center"></canvas>
+	&emsp;&emsp;&emsp;
+	<select id="mymenu" size="2">
+		<option value="1">Harfleri büyüt</option>
+		<option value="2">Harfleri küçült</option>
+	</select>
+	 &emsp;&emsp;
+	<select id = "turn" size=2>
+		<option value="3">Harfleri döndür</option>
+		<option value="4">Harfleri durdur</option>
+	</select>
+	<br>Arkaplan Rengi:
+	<button id="b1">Kırmızı</button>
+	<button id="b2">Sarı</button>
+	<button id="b3">Siyah</button>
+	<button id="b4">Yeşil</button>
+	<button id="b5">Mor</button>
+	<button id="b6">Mavi</button>
+	<button id="b7">Cyan</button>
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Harflerin rengini değiştirmek için 4,5,6,7,8,9,0 tuşlarına basın
+	<br>
+	<br>
+	   <button id = "DirectionButton">
+		Dönme yönünü değiştir
+	</button>
+	<div id="uiContainer">
+		<div id="ui">
+		<div>
+		<br>Yatayda kaydırma -1<input id ="x" type="range" min="-1" max="1" step="0.05" value="0" />1  &emsp;&emsp;&emsp;&emsp;&emsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		Harfleri kaydırmak için yön tuşlarını kullanın
+		</div>
+		<div >
+		Dikeyde kaydırma -1<input id ="y" type="range" min="-1" max="1" step="0.05" value="0" />1
+		</div>
+	</div>
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+	Harfleri döndürmek veya durdurmak için 1'e, hızlandırmak için 2'ye, yavaşlatmak için 3 e tıklayın<br>
+</body>
+<script>
+	var b1=document.querySelector("#b1");
+	var b2=document.querySelector("#b2");
+	var b3=document.querySelector("#b3");
+	var b4=document.querySelector("#b4");
+	var b5=document.querySelector("#b5");
+	var b6=document.querySelector("#b6");
+	var b7=document.querySelector("#b7");
+	b1.onclick=function(){
+			gl.clearColor(1.0, 0.0, 0.0, 1.0);
+    }
+	b2.onclick=function(){
+            gl.clearColor(1.0, 1.0, 0.0, 1.0);
+    }
+	b3.onclick=function(){
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    }
+	b4.onclick=function(){
+            gl.clearColor(0.0, 1.0, 0.0, 1.0);
+    }
+	b5.onclick=function(){
+            gl.clearColor(1.0, 0.0, 1.0, 1.0);
+    }
+	b6.onclick=function(){
+            gl.clearColor(0.0, 0.0, 1.0, 1.0);
+    }
+	b7.onclick=function(){
+            gl.clearColor(0.0, 1.0, 1.0, 1.0);
+    }
+
+</script>
+<script id="vertex-shader" type="x-shader/x-vertex">
+   attribute vec4 vPosition;
+   uniform float theta;
+   uniform float yonx ;
+   uniform float yony;
+   uniform float size;
+   void main() {
+	gl_Position.x = (cos(theta) * vPosition.x - sin(theta) * vPosition.y +yonx)*size;
+	gl_Position.y = (sin(theta) * vPosition.x + cos(theta) * vPosition.y +yony)*size;
+	gl_Position.z = 0.0;
+	gl_Position.w = 1.0;
+}
+
+</script>
+<script id="fragment-shader" type="x-shader/x-fragment">
+   precision mediump float;
+   uniform vec4 colorr;
+   void main() {
+      gl_FragColor = (colorr);
+   }
+</script>
+
+<script src="../common/initShaders.js"></script>
+<script src="../common/MV.js"></script>
+<script src="../common/webgl-utils.js"></script>
+<script src="20290269.js"></script>
+
+</html>
